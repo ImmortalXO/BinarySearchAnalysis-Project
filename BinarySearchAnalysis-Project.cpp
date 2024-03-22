@@ -61,15 +61,26 @@ int main() {
 	for (int i = 0; i < 10; ++i) {
 		nums.push_back(distribution(rng));
 	}
-	for (int i = 0; i < 10; ++i) {
-		std::cout << nums[i] << " ";
+
+	sort(nums.begin(), nums.end());
+
+	for (int num : nums) {
+		cout << num << " ";
 	}
 
-	int target;
+	cout << "\n" << endl;
 
-	std::cout << "\n" << endl;
+	int target = distribution(rng);
+	int result = recursiveBinarySearch(nums, target, 0, nums.size() - 1);
 
-	std::cout << target << endl;
+	cout << target << endl;
+
+	if (result >= 0) {
+		cout << target << " found at index: " << result << endl;
+	}
+	else {
+		cout << target << " was not found, return value is: " << result << endl;
+	}
 	
 
 	return 0;
