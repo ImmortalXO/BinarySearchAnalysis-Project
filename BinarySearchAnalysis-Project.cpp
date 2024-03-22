@@ -53,21 +53,17 @@ int sequentialSearch(vector<int>& arr, int targ) {
 }
 
 int main() {
-	int N = 5000;
-	int SumRBS = 0;
-	int SumIBS = 0;
-	int SumSeqS = 0;
-
-	int count = 0;
-	while (count < 10) {
-
+	int N = 1000000;
+	double SumRBS = 0.0;
+	double SumIBS = 0.0;
+	double SumSeqS = 0.0;
+	
+	for (int count = 0; count < 10; ++count) {
 		vector<int> nums;
-
 		mt19937 rng(random_device{}());
-
 		uniform_int_distribution<int> distribution(1, 100);
 
-		for (int i = 0; i < 10; ++i) {
+		for (int i = 0; i < N; ++i) {
 			nums.push_back(distribution(rng));
 		}
 
@@ -75,18 +71,31 @@ int main() {
 
 		int target = distribution(rng);
 
-		auto start_time = chrono::high_resolution_clock::now();
+		// Recursive Binary Search Time
+		auto start_time_rbs = chrono::high_resolution_clock::now();
+		int rec_search = recursiveBinarySearch(nums, target, 0, nums.size() - 1);
+		auto end_time_rbs = chrono::high_resolution_clock::now();
+		auto duration_rbs = chrono::duration_cast<chrono::microseconds>(end_time_rbs - start_time_rbs).count();
+		SumRBS += static_cast<double>(duration_rbs);
 
-		auto end_time = chrono::high_resolution_clock::now();
+		// Sequential Search Time
+		auto start_time_seq = chrono::high_resolution_clock::now();
+		int seq_search = sequentialSearch(nums, target);
+		auto end_time_seq = chrono::high_resolution_clock::now();
+		auto duration_seq = chrono::duration_cast<chrono::microseconds>(end_time_seq - start_time_seq).count();
+		SumSeqS += static_cast<double>(duration_seq);
 
-		auto duration = chrono::duration_cast<chrono::microseconds>(end_time - start_time).count();
-
-		int result = recursiveBinarySearch(nums, target, 0, nums.size() - 1);
-
-		cout << "Execution time: " << duration << endl;
-
-		count++;
+		// Iterative Binary Search Time
+		auto start_time_ibs = chrono::high_resolution_clock::now();
+		int it_search = iterativeBinarySearch(nums, target);
+		auto end_time_ibs = chrono::high_resolution_clock::now();
+		auto duration_ibs = chrono::duration_cast<chrono::microseconds>(end_time_ibs - start_time_ibs).count();
+		SumIBS += static_cast<double>(duration_ibs);
 	}
+
+	cout << "Average Running Time for Recursive Binary Search in microseconds is: " << SumRBS/10 << endl;
+	cout << "Average Running Time for Iterative Binary Search in microseconds is: " << SumIBS/10 << endl;
+	cout << "Average Running Time for Sequential Search in microseconds is: " << SumSeqS/10 << endl;
 
 	return 0;
 }
