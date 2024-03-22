@@ -52,49 +52,25 @@ int sequentialSearch(vector<int>& arr, int targ) {
 }
 
 int main() {
+	vector<int> nums;
 
-	vector<int> nums = { 2, 64, 32, 22, 51, 43, 88, 11, 9, 75 };
+	mt19937 rng(random_device{}());
 
-	sort(nums.begin(), nums.end());
+	uniform_int_distribution<int> distribution(1, 100);
 
-	cout << "List of integers:" << endl;
-	for (int num : nums) {
-		cout << num << " ";
+	for (int i = 0; i < 10; ++i) {
+		nums.push_back(distribution(rng));
 	}
-	cout << "\n" << endl;
+	for (int i = 0; i < 10; ++i) {
+		std::cout << nums[i] << " ";
+	}
 
-	int target = 64;
-	int target2 = 10;
+	int target;
 
-	// Recursive Binary Search
-	cout << "Recursive Binary Search:" << endl;
-	int result = recursiveBinarySearch(nums, target, 0, nums.size() - 1);
-	cout << target << " found at index: " << result << endl;
+	std::cout << "\n" << endl;
 
-	int result2 = recursiveBinarySearch(nums, target2, 0, nums.size() - 1);
-	cout << target2 << " was not found, return value is: " << result2 << endl;
-
-	cout << "\n" << endl;
-
-	// Iterative Binary Search
-	cout << "Iterative Binary Search:" << endl;
-	int result3 = iterativeBinarySearch(nums, target);
-	cout << target << " found at index: " << result3 << endl;
-
-	int result4 = iterativeBinarySearch(nums, target2);
-	cout << target2 << " was not found, return value is: " << result4 << endl;
-
-	cout << "\n" << endl;
-
-	// Sequential Search
-	cout << "Sequential Search:" << endl;
-	int result5 = sequentialSearch(nums, target);
-	cout << target << " found at index: " << result5 << endl;
-
-	int result6 = sequentialSearch(nums, target2);
-	cout << target2 << " was not found, return value is: " << result6 << endl;
-
-	cout << "\n" << endl;
+	std::cout << target << endl;
+	
 
 	return 0;
 }
