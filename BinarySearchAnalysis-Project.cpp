@@ -52,6 +52,11 @@ int sequentialSearch(vector<int>& arr, int targ) {
 }
 
 int main() {
+	int N = 5000;
+	int SumRBS = 0;
+	int SumIBS = 0;
+	int SumSeqS = 0;
+
 	vector<int> nums;
 
 	mt19937 rng(random_device{}());
