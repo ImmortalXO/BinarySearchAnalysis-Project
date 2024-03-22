@@ -4,20 +4,6 @@
 
 using namespace std;
 
-int createVector() {
-	vector<int> randomNumbers;
-	mt19937 rng(random_device{}());
-
-	uniform_int_distribution<int> distribution(1, 100);
-
-	for (int i = 0; i < 100; ++i) {
-		randomNumbers.push_back(distribution(rng));
-	}
-
-
-	return 0;
-};
-
 int recursiveBinarySearch(const vector<int>& arr, int targ, int low, int high) {
 	if (low <= high) {
 		int mid = low + (high - low) / 2;
